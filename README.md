@@ -104,8 +104,7 @@ Plantillas de android para simplificar la creación de aplicaciones, variedad de
 	Checkear si se requiere actualizar datos de una fuente a otra
 
 ### LocalSource
-- Load data from static source (assets)
-	Obtener datos staticos de assets
+- [Load data from static source (assets):](https://github.com/webserveis/android-template-studio/blob/main/datasources/load%20data%20from%20assets.md) Obtener datos estáticos desde assets
 - Load data from database
 	Obtener datos de base de datos
 - CRUD database
