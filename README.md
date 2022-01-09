@@ -2,11 +2,13 @@
 
 # Intro
 
+Plantillas de android para simplificar la creación de aplicaciones, variedad de estilo de pantallas y patrones de diseño. Las vistas se han maqueteado siguiendo la guia de estilo de Google y la funcionalidad mediante lenguaje Kotlin (100% nativas)
+
 ## Base de proyecto
 - base principal de todos los módulos, Colores, Modo oscuro automático.
 
 ## Splash screens
- - Splash screen
+ - [Splash screen](https://github.com/webserveis/android-template-studio/blob/main/splashscreen.md)
  - Splash screen con progressView
  
  ## Welcome screens
