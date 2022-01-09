@@ -8,7 +8,7 @@ Plantillas de android para simplificar la creación de aplicaciones, variedad de
 - base principal de todos los módulos, Colores, Modo oscuro automático.
 
 ## Splash screens
- - [Splash screen](https://github.com/webserveis/android-template-studio/blob/main/splashscreen.md)
+ - [Splash screen](splashscreen.md)
  - Splash screen con progressView
  
  ## Welcome screens
