@@ -1,136 +1,116 @@
+# Splash screen
+
+Módulo para crear pantalla de bienvenida (Splash Screen)
+
+## 1 Creando los assets
+
+**Dimensiones de la pantalla de inicio**
+ - LDPI:
+    - Portrait: 200x320px
+    - Landscape: 320x200px
+ - MDPI:
+    - Portrait: 320x480px
+    - Landscape: 480x320px
+ - HDPI:
+    - Portrait: 480x800px
+    - Landscape: 800x480px
+ - XHDPI:
+    - Portrait: 720px1280px
+    - Landscape: 1280x720px
+ - XXHDPI
+    - Portrait: 960x1600px
+    - Landscape: 1600x960px
+ - XXXHDPI 
+    - Portrait: 1280x1920px
+    - Landscape: 1920x1280px
+
+> Lo más recomendable es usar los assets de XXHDPI es decir 960x1600px
+
+Diseñamos la pantalla de inicio siguiendo la siguiente estructura
 
 
-# Intro
+ - El color de fondo, se puede heredar del sistema si el modo oscuro está activo o no
+ - para el logotipo splash_screen_cover.png
+ - para la marca splash_screen_branding.png
 
-Plantillas de android para simplificar la creación de aplicaciones, variedad de estilo de pantallas y patrones de diseño. Las vistas se han maqueteado siguiendo la guia de estilo de Google y la funcionalidad mediante lenguaje Kotlin (100% nativas)
+los asignamos a la carpeta `drawable-xxhdpi`
 
-## Base de proyecto
-- base principal de todos los módulos, Colores, Modo oscuro automático.
+Ahora solo falta unir los assets lo haremos con un layer dentro de un drawable
 
-## Splash screens
- - [Splash screen](splashscreen.md)
- - Splash screen con progressView
+```xml
+<?xml version="1.0" encoding="utf-8"?>  
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"  
+  android:opacity="opaque">  
+  <!-- splash screen background color -->  
+  <item android:drawable="@android:color/background_light" />  
+  
+  <!-- splash screen cover -->  
+  <item  
+  android:drawable="@drawable/splash_screen_cover"  
+  android:gravity="center" />  
+  
+  <!-- splash screen branding -->  
+  <item  
+  android:bottom="72dp">  
+ <bitmap  
+  android:alpha="0.66"  
+  android:gravity="bottom"  
+  android:src="@drawable/splash_screen_branding" />  
+ </item>  
+</layer-list>
+```
+
+## 2 Definiendo el tema
+En `styles.xml` crearemos un nuevo tema llamado `SplashTheme` y aquí con la propiedad `android:windwoBackground` le asignamos el asset de la splashscreen.
+
+```xml
+<!-- Splash Screen theme. -->  
+<style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">  
+  <item name="android:windowBackground">@drawable/splash_background</item>  
+ <item name="android:statusBarColor">@android:color/background_light</item>  
+ <item name="android:navigationBarColor">@android:color/background_light</item>  
+  <item name="android:windowLightStatusBar">true</item>  
+</style>
+ ``` 
+
+## 3 Creando la vista splash screen
+Crear una nueva actividad y llamarla SplashScreenActivity
+
+```kotlin
+class SplashScreenActivity : AppCompatActivity() {  
  
- ## Welcome screens
- - Welcome screen simple
-	 pantalla de inicio logotipo y marca comercial.
- - Welcome screen multiple summary
-	 pantalla de incio con multiples sumarios.
- - Welcome screen feature apps (Whats the new)
-	 pantalla de inicio con resaltar caracteristicas de la app.
+  override fun onCreate(savedInstanceState: Bundle?) {  
+  super.onCreate(savedInstanceState)  
+  
+  loadSplashScreen()  
+  
+ }  
+  private fun loadSplashScreen() {  
+  val delayTime = resources.getInteger(android.R.integer.config_longAnimTime).toLong() * 2  
+  Handler(Looper.getMainLooper()).postDelayed({ launchMainScreen() }, delayTime)  
+ }  
+  private fun launchMainScreen() {  
+  val intent = Intent(this, MainActivity::class.java)  
+  startActivity(intent)  
+  overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)  
+  this.finish()  
+ }  
+}
+```
 
-## Main screens
-- Main screen Hello world
-	 pantalla de contenido principal vacia
-- Main screen Top panel
-	pantalla de contenido con un panel que se oculta al realizar scroll.
-- Main screen with tabs
-	pantalla de contenido agrupado por pestañas
-	
-## List screens
-- List screen simple
-	lista simple de solo lectura
-- List screen multi-view (headers)
-	lista con multiple vistas, encabezados
-- List combined diferent group list views (Nested RecyclerView)
-	lista vertical combinada de diferente tipos de vistas, desplazamiento horizontal
-- List CRUD operations in memory (Swipe View for deletion)
-	lista dinánimca con operaciones Create Read Update Delete
-
-## Detail screens
-- Read detail screen
-	Vista de detalle solo lectura
-- CRUD detail screen
-	Vista de detalle con operación de Create Read Update Delete
-
-## Settings screens
-- Setting screen with darkmode
-	Pantalla de ajustes con selector de modo oscuro
-
-## Gallery screens
- - List images
-	 Pantalla para mostrar una galeria
- - Image Viewer
-	 Visor de imágenes
-
-## Map screen
-- Map screen with google maps
-	Pantalla de carga de maps
-
-## Dialogs and Pickers
-- Alert dialog
-	Cuadro de diálogo de alerta
-- Radio list dialog
-	Cuadro de diálogo con selector de elementos
-- Check list dialog
-	Cuadro de diálogo con selector de elementos multiple
-- Date Picker
-	Para poder escoger una fecha
-- Time picker
-	Para poder escoger una hora
-- Date Time picker
-	Para poder escoger fecha y hora
-- Color picker
-	Para poder escoger un color predeterminado
-- Days week picker
-	Para poder selecionar multiples dias de la semana
-
-## Bottom Sheet pickers
-- Bottom sheet custom
-	Panel inferior deslizante
-- Bottom sheet 3 states (full screen)
-	Panel inferior deslizante de 3 estados
-- Action bottom sheet
-	Panel inferior con menú de acciones
-
-## Menus and Navigation
-- Menu simple
-	Carga de menú principal o secundario
-- Side menu navigation
-	Implementar menú lateral de navegación
-- Bottom navigation
-	Implementar barra de navegación inferior
-
-## State screens
-- Loading, Empty, Error screen
-	Mostrar pantallas de carga, vacio o de error en la obtención de datos
-- Event app screen (Full screen)
-	Mostrar pantalla de evento en pantalla completa
-
-## Data Sources
- - Combine localSource and RemoteSource
-	 Combinar obtención de datos de remoto y local
-- Check if need update data
-	Checkear si se requiere actualizar datos de una fuente a otra
-
-### LocalSource
-- Load data from static source (assets)
-	Obtener datos staticos de assets
-- Load data from database
-	Obtener datos de base de datos
-- CRUD database
-	Obtener y operar sobre los datos de la base de datos
-
-### RemoteSource
-- Load data form remote source (API json)
-	Obtener datos remotadamente, API rest
-
-## LiveData observables
-- observate internet conection
-	Monitorizar el estado de la conexión de internet
-- observate GPS location
-	Monitorizar la posición del dispositivo
-
-## Services
-- Launch service
-	Lanzar un servicio
-- Launch and comunicate service
-	Lanzar un servicio y comunicarse con el
-- Mediaplayer service
-	Lazar un servicio multimedia
-
-## Lock Screen
-- Lock screen with pin code
-	Pantalla de bloqueo con validación de pin
-- Lock screen with pattern and biometric system
-	Pantalla de bloqueo con patrón y sistema biométrico
+## 4 Asignar la splash screen como principal
+Asignar la splashscreen que sea la actividad principal de la aplicación en `AndroidManifest.xml`
+```xml
+<activity  
+  android:name=".SplashScreenActivity"  
+  android:label="@string/app_name"  
+  android:launchMode="singleTop"  
+  android:exported="true"  
+  android:screenOrientation="portrait"  
+  android:theme="@style/SplashTheme">  
+ <intent-filter>  
+ <action android:name="android.intent.action.MAIN" />  
+ <category android:name="android.intent.category.LAUNCHER" />  
+ </intent-filter>  
+</activity>
+```
