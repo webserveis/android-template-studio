@@ -1,6 +1,6 @@
-# android-template-studio
-Colección de plantillas para crear aplicaciones Android nativas con Kotlin
 
+
+# Intro
 
 ## Base de proyecto
 - base principal de todos los módulos, Colores, Modo oscuro automático.
@@ -40,6 +40,20 @@ Colección de plantillas para crear aplicaciones Android nativas con Kotlin
 	Vista de detalle solo lectura
 - CRUD detail screen
 	Vista de detalle con operación de Create Read Update Delete
+
+## Settings screens
+- Setting screen with darkmode
+	Pantalla de ajustes con selector de modo oscuro
+
+## Gallery screens
+ - List images
+	 Pantalla para mostrar una galeria
+ - Image Viewer
+	 Visor de imágenes
+
+## Map screen
+- Map screen with google maps
+	Pantalla de carga de maps
 
 ## Dialogs and Pickers
 - Alert dialog
@@ -112,3 +126,9 @@ Colección de plantillas para crear aplicaciones Android nativas con Kotlin
 	Lanzar un servicio y comunicarse con el
 - Mediaplayer service
 	Lazar un servicio multimedia
+
+## Lock Screen
+- Lock screen with pin code
+	Pantalla de bloqueo con validación de pin
+- Lock screen with pattern and biometric system
+	Pantalla de bloqueo con patrón y sistema biométrico
